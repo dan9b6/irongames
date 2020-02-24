@@ -14,6 +14,7 @@ const terminate = error => {
   const exitCode = error && error instanceof Error ? 1 : 0;
   debug('Terminating node app.');
   mongoose.disconnect().finally(() => {
+    console.log(error);
     debug('Disconnected from database.');
     process.exit(exitCode);
   });
@@ -22,10 +23,12 @@ const terminate = error => {
 process.on('SIGINT', () => terminate());
 process.on('SIGTERM', () => terminate());
 process.on('uncaughtException', error => {
+  console.log(error);
   debug('There was an uncaught exception.');
   terminate(error);
 });
 process.on('unhandledRejection', error => {
+  console.log(error);
   debug('There was an unhandled promise rejection.');
   terminate(error);
 });

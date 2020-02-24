@@ -15,7 +15,16 @@ const schema = new mongoose.Schema({
   },
   passwordHash: {
     type: String
-  }
+  },
+  campus: {
+    type: String,
+    enum: ['Lisbon', 'Miami', 'Amsterdam', 'Madrid']
+  },
+  photo: [
+    {
+      type: String
+    }
+  ]
 });
 
 module.exports = mongoose.model('User', schema);
